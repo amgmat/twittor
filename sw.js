@@ -44,7 +44,7 @@ self.addEventListener('active', e => {
 
     const respuesta = caches.keys().then(keys => {
         keys.forEach(key => {
-            if (key !== STATIC_CACHE && Key.includes('static')) {
+            if (key !== STATIC_CACHE && key.includes('static')) {
                 return caches.delete(key);
             }
         });
