@@ -50,7 +50,8 @@ self.addEventListener('active', e => {
 
                     if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
                         return caches.delete(key);
-                    };
+                    }
+
                 });
 
                 e.waitUntil(respuesta);
