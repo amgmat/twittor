@@ -54,9 +54,9 @@ self.addEventListener('active', e => {
 
                 });
 
-                e.waitUntil(respuesta);
-
             });
+
+            e.waitUntil(respuesta);
 
             self.addEventListener('fetch', e => {
 
