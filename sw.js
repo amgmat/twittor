@@ -43,39 +43,39 @@ self.addEventListener('install', e => {
 self.addEventListener('active', e => {
 
             const respuesta = caches.keys().then(keys => {
-                    keys.forEach(key => {
-                            if (key !== STATIC_CACHE && key.includes('static')) {
-                                return caches.delete(key);
-                            }
+                keys.forEach(key => {
+                    if (key !== STATIC_CACHE && key.includes('static')) {
+                        return caches.delete(key);
+                    }
 
-                            if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
-                                return caches.delete(key);
-                            });
-                    });
+                    if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
+                        return caches.delete(key);
+                    };
+                });
 
                 e.waitUntil(respuesta);
 
             });
 
-        self.addEventListener('fetch', e => {
+            self.addEventListener('fetch', e => {
 
-            const respuesta = caches.match(e.request).then(res => {
+                const respuesta = caches.match(e.request).then(res => {
 
-                if (res) {
-                    return res;
-                } else {
-                    // console.log(e.request.url);
-                    return fetch(e.request).then(newRes => {
-                        return actualizaCacheDinamico(DYNAMIC_CACHE, e.request, newRes);
-                    });
-                }
+                    if (res) {
+                        return res;
+                    } else {
+                        // console.log(e.request.url);
+                        return fetch(e.request).then(newRes => {
+                            return actualizaCacheDinamico(DYNAMIC_CACHE, e.request, newRes);
+                        });
+                    }
 
 
 
+
+                });
+
+
+                e.respondWith(respuesta);
 
             });
-
-
-            e.respondWith(respuesta);
-
-        });
